@@ -501,7 +501,7 @@ export const tabs = [
     key : "completer",
     name: "Completer",
     hideAt: 2.9,
-    UICLass: "o-tab-btn--infinity",
+    UIClass: "o-tab-btn--completer",
     id: 11,
     hidable: false,
     subtabs : [

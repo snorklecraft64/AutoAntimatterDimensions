@@ -913,6 +913,7 @@ window.player = {
       id: false,
     }
   },
+  completerOn: false
 };
 
 export const Player = {
