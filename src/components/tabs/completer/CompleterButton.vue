@@ -11,6 +11,8 @@ export default {
       return {
         "o-completer-btn": true,
         "o-completer-btn--color": true,
+        "o-completer-btn--on": this.isOn,
+        "o-completer-btn--off": !this.isOn
       };
     },
     text() {
@@ -30,7 +32,6 @@ export default {
 
 <template>
   <button
-    v-tooltip="tooltip"
     :class="classObject"
     @click="clicked"
   >

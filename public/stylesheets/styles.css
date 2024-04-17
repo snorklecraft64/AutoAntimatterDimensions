@@ -9302,29 +9302,85 @@ input.o-automator-block-input {
 }
 
 .o-completer-btn {
-  width: 19rem;
-  height: 9rem;
+  width: 25rem;
+  height: 10rem;
   font-family: Typewriter, serif;
-  font-size: 1rem;
+  font-size: 2rem;
   font-weight: bold;
-  color: white;
   background-color: #1f1f1f;
-  border: 0.1rem solid black;
   border-radius: var(--var-border-radius, 0.4rem);
   transition-duration: 0.2s;
   cursor: pointer;
+}
+
+.o-completer-btn--on {
+  color: var(--color-completer);
+  border: 0.1rem solid var(--color-completer);
+}
+
+.o-completer-btn--off {
+  color : white;
+  border: 0.1rem solid black;
 }
 
 .o-completer-btn--color {
   background-color: black;
 }
 
+.o-landmark__desc {
+  width: 25rem;
+  height: 8rem;
+  font-family: Typewriter, serif;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: black;
+  border: 0.1rem solid var(--color-eternity);
+  border-radius: var(--var-border-radius, 0.4rem);
+  transition-duration: 0.2s;
+}
+
+.o-landmark__desc--nonreached {
+  background-color: dimgrey;
+}
+
+.o-landmark__desc--reached {
+  background-color: var(--color-eternity);
+  border-color: black;
+}
+
 .l-completer-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 3rem;
+}
+
+.l-completer_tab__completer-btn {
+  margin-top: 2rem;
+}
+
+.l-completer-tab__landmarks {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.l-landmark {
+  display: flex;
+  flex-direction: column;
+}
+
+.l-landmark-grid {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.l-completer_tab__completer-btn {
-  margin-top: 2rem;
+.l-landmark-grid__row {
+  display: flex;
+  flex-direction: row;
+}
+
+.l-landmark-grid__cell {
+  margin: 0.5rem 0.8rem;
 }

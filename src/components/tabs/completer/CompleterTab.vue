@@ -1,16 +1,34 @@
 <script>
 import CompleterButton from "./CompleterButton";
+import CompleterLandmarkGrid from "./CompleterLandmarkGrid";
 
 export default {
   name: "CompleterTab",
   components: {
-    CompleterButton
+    CompleterButton,
+    CompleterLandmarkGrid
+  },
+  data() {
+    return {
+      completerStatus: "Off"
+    };
+  },
+  methods: {
+    update() {
+      this.completerStatus = player.completerOn ? "On" : "Off";
+    }
   }
 };
 </script>
 
 <template>
   <div class="l-completer-tab">
-    <CompleterButton class="l-completer-tab__completer-btn" />
+    <div>
+      <CompleterButton class="l-completer-tab__completer-btn" />
+      <div>The Completer is {{ completerStatus }}</div>
+    </div>
+    <div class="l-completer-tab__landmarks">
+      <CompleterLandmarkGrid/>
+    </div>
   </div>
 </template>
