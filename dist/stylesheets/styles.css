@@ -104,6 +104,8 @@ html {
 
   --color-pelle--base: crimson;
   --color-pelle--secondary: #00bcd4;
+
+  --color-completer: #15ff00;
 }
 
 :root .t-metro,
@@ -752,6 +754,16 @@ button:focus {
 
 .o-tab-btn--celestial:hover {
   background: var(--color-celestials);
+}
+
+.o-tab-btn--completer {
+  color: var(--color-completer);
+  background-color: var(--color-prestige--accent);
+  border-color: var(--color-completer);
+}
+
+.o-tab-btn--completer:hover {
+  background: var(--color-completer);
 }
 
 /* #endregion tab buttons */
@@ -9287,4 +9299,32 @@ input.o-automator-block-input {
 .l-fill-container {
   width: 100%;
   height: 100%;
+}
+
+.o-completer-btn {
+  width: 19rem;
+  height: 9rem;
+  font-family: Typewriter, serif;
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+  background-color: #1f1f1f;
+  border: 0.1rem solid black;
+  border-radius: var(--var-border-radius, 0.4rem);
+  transition-duration: 0.2s;
+  cursor: pointer;
+}
+
+.o-completer-btn--color {
+  background-color: black;
+}
+
+.l-completer-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.l-completer_tab__completer-btn {
+  margin-top: 2rem;
 }
