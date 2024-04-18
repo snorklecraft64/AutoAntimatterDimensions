@@ -6,7 +6,7 @@ const DEV = process.env.VUE_APP_DEV === "true";
 const STEAM = process.env.VUE_APP_STEAM === "true";
 
 module.exports = {
-  publicPath: "./",
+  publicPath: "/AutoAntimatterDimensions/",
   lintOnSave: false,
   outputDir: STEAM ? "../AppFiles" : "dist",
   configureWebpack: {
