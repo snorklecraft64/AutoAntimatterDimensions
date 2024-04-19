@@ -913,7 +913,10 @@ window.player = {
       id: false,
     }
   },
-  completerOn: false
+  completer: {
+    isOn: false,
+    lastLandmarkAchieved: 0
+  }
 };
 
 export const Player = {

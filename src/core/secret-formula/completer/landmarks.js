@@ -1,31 +1,138 @@
+import { landmarkIDs as IDs} from "../../constants.js"
+import { DC } from "../../constants.js"
+
 export const landmarks = {
+  FirstDim: {
+    id: IDs.FirstDim,
+    desc: "First Dimension",
+    isReached: () => {
+      if (player.lastLandmarkAchieved >= IDs.FirstDim) return true;
+      else if (player.dimensions.antimatter[0].bought >= 1) {
+        player.lastLandmarkAchieved == IDs.FirstDim;
+        return true;
+      }
+      else return false;
+    }
+  },
+  SecondDim: {
+    id: IDs.SecondDim,
+    desc: "Second Dimension",
+    isReached: () => {
+      if (player.lastLandmarkAchieved >= IDs.SecondDim) return true;
+      else if (player.dimensions.antimatter[1].bought >= 1) {
+        player.lastLandmarkAchieved == IDs.SecondDim;
+        return true;
+      }
+      else return false;
+    }
+  },
+  ThirdDim: {
+    id: IDs.ThirdDim,
+    desc: "Third Dimension",
+    isReached: () => {
+      if (player.lastLandmarkAchieved >= IDs.ThirdDim) return true;
+      else if (player.dimensions.antimatter[2].bought >= 1) {
+        player.lastLandmarkAchieved == IDs.ThirdDim;
+        return true;
+      }
+      else return false;
+    }
+  },
+  FourthDim: {
+    id: IDs.FourthDim,
+    desc: "Fourth Dimension",
+    isReached: () => {
+      if (player.lastLandmarkAchieved >= IDs.FourthDim) return true;
+      else if (player.dimensions.antimatter[3].bought >= 1) {
+        player.lastLandmarkAchieved == IDs.FourthDim;
+        return true;
+      }
+      else return false;
+    }
+  },
   FirstDimensionBoost: {
-    id: 0,
-    desc: "First Dimension Boost"
+    id: IDs.FirstDimBoost,
+    desc: "First Dimension Boost",
+    isReached: () => {
+      if (player.lastLandmarkAchieved >= IDs.FirstDimBoost) return true;
+      else if (player.dimensionBoosts >= 1) {
+        player.lastLandmarkAchieved == IDs.FirstDimBoost;
+        return true;
+      }
+      else return false;
+    }
   },
   SecondDimensionBoost: {
-    id: 1,
-    desc: "Second Dimension Boost"
+    id: IDs.SecondDimBoost,
+    desc: "Second Dimension Boost",
+    isReached: () => {
+      if (player.lastLandmarkAchieved >= IDs.SecondDimBoost) return true;
+      else if (player.dimensionBoosts >= 2) {
+        player.lastLandmarkAchieved == IDs.SecondDimBoost;
+        return true;
+      }
+      else return false;
+    }
   },
   ThirdDimensionBoost: {
-    id: 2,
-    desc: "Third Dimension Boost"
+    id: IDs.ThirdDimBoost,
+    desc: "Third Dimension Boost",
+    isReached: () => {
+      if (player.lastLandmarkAchieved >= IDs.ThirdDimBoost) return true;
+      else if (player.dimensionBoosts >= 3) {
+        player.lastLandmarkAchieved == IDs.ThirdDimBoost;
+        return true;
+      }
+      else return false;
+    }
   },
   FourthDimensionBoost: {
-    id: 3,
-    desc: "Fourth Dimension Boost"
+    id: IDs.FourthDimBoost,
+    desc: "Fourth Dimension Boost",
+    isReached: () => {
+      if (player.lastLandmarkAchieved >= IDs.FourthDimBoost) return true;
+      else if (player.dimensionBoosts >= 4) {
+        player.lastLandmarkAchieved == IDs.FourthDimBoost;
+        return true;
+      }
+      else return false;
+    }
   },
   FirstGalaxy: {
-    id: 3,
-    desc: "First Galaxy"
+    id: IDs.FirstGalaxy,
+    desc: "First Galaxy",
+    isReached: () => {
+      if (player.lastLandmarkAchieved >= IDs.FirstGalaxy) return true;
+      else if (player.galaxies >= 1) {
+        player.lastLandmarkAchieved == IDs.FirstGalaxy;
+        return true;
+      }
+      else return false;
+    }
   },
   SecondGalaxy: {
-    id: 3,
-    desc: "Second Galaxy"
+    id: IDs.SecondGalaxy,
+    desc: "Second Galaxy",
+    isReached: () => {
+      if (player.lastLandmarkAchieved >= IDs.SecondGalaxy) return true;
+      else if (player.galaxies >= 2) {
+        player.lastLandmarkAchieved == IDs.SecondGalaxy;
+        return true;
+      }
+      else return false;
+    }
   },
   FirstInfinity: {
-    id: 3,
-    desc: "First Infinity"
+    id: IDs.FirstInfinity,
+    desc: "First Infinity",
+    isReached: () => {
+      if (player.lastLandmarkAchieved >= IDs.FirstInfinity) return true;
+      else if (player.infinities.gte(DC.D1)) {
+        player.lastLandmarkAchieved == IDs.FirstInfinity;
+        return true;
+      }
+      else return false;
+    }
   },/*
   EighthInfinityUpgrade: {
 

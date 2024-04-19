@@ -505,3 +505,17 @@ window.SPEEDRUN_SEED_STATE = {
   RANDOM: 2,
   PLAYER: 3,
 };
+
+export const landmarkIDs = {
+  FirstDim:                 0,
+  SecondDim:                1,
+  ThirdDim:                 2,
+  FourthDim:                3,
+  FirstDimBoost:            4,
+  SecondDimBoost:           5,
+  ThirdDimBoost:            6,
+  FourthDimBoost:           7,
+  FirstGalaxy:              8,
+  SecondGalaxy:             9,
+  FirstInfinity:            10
+}

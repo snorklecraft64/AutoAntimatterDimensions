@@ -9372,8 +9372,9 @@ input.o-automator-block-input {
 
 .l-landmark-grid {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-wrap: wrap;
+  max-width: 110rem;
+  justify-content: center;
 }
 
 .l-landmark-grid__row {

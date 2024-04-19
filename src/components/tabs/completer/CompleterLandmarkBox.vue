@@ -16,11 +16,8 @@ export default {
     landmark() {
       return this.getLandmark();
     },
-    config() {
-      return this.landmark.config;
-    },
     desc() {
-      return this.config.desc;
+      return this.landmark.desc;
     },
     descClassObject() {
       return {
@@ -35,7 +32,7 @@ export default {
   },
   methods: {
     update() {
-      if (this.landmark != null) this.isReached = this.landmark.isReached;
+      if (this.landmark != null) this.isReached = this.landmark.isReached();
       else return null;
     }
   }
@@ -44,11 +41,9 @@ export default {
 
 <template>
   <div
-    v-if="!config.invisible"
     class="l-landmark"
   >
     <button
-      v-tooltip="activeCondition"
       :class="descClassObject"
     >
       <span>
