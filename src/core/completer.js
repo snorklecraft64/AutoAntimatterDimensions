@@ -1,3 +1,9 @@
+
+
+
+
+
+/* MAY NEED LATER
 export class LandmarkState {
   constructor(config) {
     this.config = config;
@@ -20,3 +26,4 @@ export const Landmark = mapGameDataToObject(
     ? new LandmarkState(config)
     : new LandmarkState(config))
 );
+*/
