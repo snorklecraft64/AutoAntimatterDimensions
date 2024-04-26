@@ -4,47 +4,23 @@ import { DC } from "../../constants.js"
 export const landmarks = {
   FirstDim: {
     id: IDs.FirstDim,
-    desc: "First Dimension",
-    isReached: () => {
-      if (player.lastLandmarkAchieved >= IDs.FirstDim) return true;
-      else if (player.dimensions.antimatter[0].bought >= 1) {
-        player.lastLandmarkAchieved == IDs.FirstDim;
-        return true;
-      }
-      else return false;
-    }
+    desc: "First Dimension"
   },
   SecondDim: {
     id: IDs.SecondDim,
-    desc: "Second Dimension",
-    isReached: () => {
-      if (player.lastLandmarkAchieved >= IDs.SecondDim) return true;
-      else if (player.dimensions.antimatter[1].bought >= 1) {
-        player.lastLandmarkAchieved == IDs.SecondDim;
-        return true;
-      }
-      else return false;
-    }
+    desc: "Second Dimension"
   },
   ThirdDim: {
     id: IDs.ThirdDim,
-    desc: "Third Dimension",
-    isReached: () => {
-      if (player.lastLandmarkAchieved >= IDs.ThirdDim) return true;
-      else if (player.dimensions.antimatter[2].bought >= 1) {
-        player.lastLandmarkAchieved == IDs.ThirdDim;
-        return true;
-      }
-      else return false;
-    }
+    desc: "Third Dimension"
   },
   FourthDim: {
     id: IDs.FourthDim,
     desc: "Fourth Dimension",
     isReached: () => {
-      if (player.lastLandmarkAchieved >= IDs.FourthDim) return true;
+      if (player.completer.lastLandmarkAchieved >= IDs.FourthDim) return true;
       else if (player.dimensions.antimatter[3].bought >= 1) {
-        player.lastLandmarkAchieved == IDs.FourthDim;
+        player.completer.lastLandmarkAchieved = IDs.FourthDim;
         return true;
       }
       else return false;
@@ -54,9 +30,9 @@ export const landmarks = {
     id: IDs.FirstDimBoost,
     desc: "First Dimension Boost",
     isReached: () => {
-      if (player.lastLandmarkAchieved >= IDs.FirstDimBoost) return true;
+      if (player.completer.lastLandmarkAchieved >= IDs.FirstDimBoost) return true;
       else if (player.dimensionBoosts >= 1) {
-        player.lastLandmarkAchieved == IDs.FirstDimBoost;
+        player.completer.lastLandmarkAchieved = IDs.FirstDimBoost;
         return true;
       }
       else return false;
@@ -66,9 +42,9 @@ export const landmarks = {
     id: IDs.SecondDimBoost,
     desc: "Second Dimension Boost",
     isReached: () => {
-      if (player.lastLandmarkAchieved >= IDs.SecondDimBoost) return true;
+      if (player.completer.lastLandmarkAchieved >= IDs.SecondDimBoost) return true;
       else if (player.dimensionBoosts >= 2) {
-        player.lastLandmarkAchieved == IDs.SecondDimBoost;
+        player.completer.lastLandmarkAchieved = IDs.SecondDimBoost;
         return true;
       }
       else return false;
@@ -78,9 +54,9 @@ export const landmarks = {
     id: IDs.ThirdDimBoost,
     desc: "Third Dimension Boost",
     isReached: () => {
-      if (player.lastLandmarkAchieved >= IDs.ThirdDimBoost) return true;
+      if (player.completer.lastLandmarkAchieved >= IDs.ThirdDimBoost) return true;
       else if (player.dimensionBoosts >= 3) {
-        player.lastLandmarkAchieved == IDs.ThirdDimBoost;
+        player.completer.lastLandmarkAchieved = IDs.ThirdDimBoost;
         return true;
       }
       else return false;
@@ -90,9 +66,9 @@ export const landmarks = {
     id: IDs.FourthDimBoost,
     desc: "Fourth Dimension Boost",
     isReached: () => {
-      if (player.lastLandmarkAchieved >= IDs.FourthDimBoost) return true;
+      if (player.completer.lastLandmarkAchieved >= IDs.FourthDimBoost) return true;
       else if (player.dimensionBoosts >= 4) {
-        player.lastLandmarkAchieved == IDs.FourthDimBoost;
+        player.completer.lastLandmarkAchieved = IDs.FourthDimBoost;
         return true;
       }
       else return false;
@@ -102,9 +78,9 @@ export const landmarks = {
     id: IDs.FirstGalaxy,
     desc: "First Galaxy",
     isReached: () => {
-      if (player.lastLandmarkAchieved >= IDs.FirstGalaxy) return true;
+      if (player.completer.lastLandmarkAchieved >= IDs.FirstGalaxy) return true;
       else if (player.galaxies >= 1) {
-        player.lastLandmarkAchieved == IDs.FirstGalaxy;
+        player.completer.lastLandmarkAchieved = IDs.FirstGalaxy;
         return true;
       }
       else return false;
@@ -114,9 +90,9 @@ export const landmarks = {
     id: IDs.SecondGalaxy,
     desc: "Second Galaxy",
     isReached: () => {
-      if (player.lastLandmarkAchieved >= IDs.SecondGalaxy) return true;
+      if (player.completer.lastLandmarkAchieved >= IDs.SecondGalaxy) return true;
       else if (player.galaxies >= 2) {
-        player.lastLandmarkAchieved == IDs.SecondGalaxy;
+        player.completer.lastLandmarkAchieved = IDs.SecondGalaxy;
         return true;
       }
       else return false;
@@ -126,9 +102,9 @@ export const landmarks = {
     id: IDs.FirstInfinity,
     desc: "First Infinity",
     isReached: () => {
-      if (player.lastLandmarkAchieved >= IDs.FirstInfinity) return true;
+      if (player.completer.lastLandmarkAchieved >= IDs.FirstInfinity) return true;
       else if (player.infinities.gte(DC.D1)) {
-        player.lastLandmarkAchieved == IDs.FirstInfinity;
+        player.completer.lastLandmarkAchieved = IDs.FirstInfinity;
         return true;
       }
       else return false;

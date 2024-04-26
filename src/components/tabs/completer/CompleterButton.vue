@@ -21,10 +21,10 @@ export default {
   },
   methods: {
     update() {
-      this.isOn = player.completerOn;
+      this.isOn = player.completer.isOn;
     },
     clicked() {
-      player.completerOn = !player.completerOn;
+      player.completer.isOn = !player.completer.isOn;
     }
   }
 };

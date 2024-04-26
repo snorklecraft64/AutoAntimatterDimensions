@@ -915,7 +915,7 @@ window.player = {
   },
   completer: {
     isOn: false,
-    lastLandmarkAchieved: 0
+    lastLandmarkAchieved: -1
   }
 };
 

@@ -471,6 +471,9 @@ export function gameLoop(passDiff, options = {}) {
   }
 
   Autobuyers.tick();
+
+  Completer.tick();
+  
   Tutorial.tutorialLoop();
 
   if (Achievement(165).isUnlocked && player.celestials.effarig.autoAdjustGlyphWeights) {

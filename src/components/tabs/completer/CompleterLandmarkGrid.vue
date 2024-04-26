@@ -9,7 +9,8 @@ export default {
   computed: {
     landmarks() {
       return Object.values(GameDatabase.landmarks)
-        .sort((a, b) => a.id - b.id);
+        .sort((a, b) => a.id - b.id)
+        .map(config => new LandmarkState(config));
     }
   },
   methods: {

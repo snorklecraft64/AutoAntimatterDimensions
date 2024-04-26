@@ -16,8 +16,12 @@ export default {
     landmark() {
       return this.getLandmark();
     },
+    config() {
+      console.log();
+      return this.landmark.config;
+    },
     desc() {
-      return this.landmark.desc;
+      return this.config.desc;
     },
     descClassObject() {
       return {
@@ -32,7 +36,7 @@ export default {
   },
   methods: {
     update() {
-      if (this.landmark != null) this.isReached = this.landmark.isReached();
+      if (this.landmark != null) this.isReached = this.landmark.isReached;
       else return null;
     }
   }

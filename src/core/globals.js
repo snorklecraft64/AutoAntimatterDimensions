@@ -14,6 +14,8 @@ export * from "./confirmations";
 export * from "./autobuyers/autobuyers";
 export * from "./storage";
 
+export * from "./completer";
+
 export * from "./notations";
 export * from "./tutorial";
 
