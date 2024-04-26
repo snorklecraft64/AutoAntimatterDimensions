@@ -63,6 +63,10 @@
             manualRequestDimensionBoost(false);
             break;
           case IDs.FourthDimBoost:
+          case IDs.FifthDimBoost:
+          case IDs.SixthDimBoost:
+          case IDs.SeventhDimBoost:
+          case IDs.EighthDimBoost:
             if (Sacrifice.nextBoost.gte(2.00)) sacrificeReset();
             maxAll();
             if (player.dimensions.antimatter[0].bought < 10) buyOneDimension(1);
@@ -73,8 +77,9 @@
             else if (player.dimensions.antimatter[5].bought < 10) buyOneDimension(6);
             else if (player.dimensions.antimatter[6].bought < 10) buyOneDimension(7);
             buyOneDimension(8);
-            manualRequestDimensionBoost(false);
+            buyAutobuyersNotBought();
             manualRequestGalaxyReset(false);
+            manualRequestDimensionBoost(false);
             break;
           case IDs.FirstGalaxy:
             break;
@@ -118,8 +123,10 @@
         if (player.dimensions.antimatter[2].bought >= 1)
           player.completer.lastLandmarkAchieved = IDs.ThirdDim;
       case IDs.ThirdDim:
-        if (player.dimensions.antimatter[3].bought >= 1)
+        if (player.dimensions.antimatter[3].bought >= 1) {
           player.completer.lastLandmarkAchieved = IDs.FourthDim;
+          player.options.confirmations.dimensionBoost = false; // disable the modal appearing
+        }
       case IDs.FourthDim:
         if (player.dimensionBoosts >= 1)
           player.completer.lastLandmarkAchieved = IDs.FirstDimBoost;
@@ -133,6 +140,20 @@
         if (player.dimensionBoosts >= 4)
           player.completer.lastLandmarkAchieved = IDs.FourthDimBoost;
       case IDs.FourthDimBoost:
+        if (player.dimensionBoosts >= 5)
+          player.completer.lastLandmarkAchieved = IDs.FifthDimBoost;
+      case IDs.FifthDimBoost:
+        if (player.dimensionBoosts >= 6)
+          player.completer.lastLandmarkAchieved = IDs.SixthDimBoost;
+      case IDs.SixthDimBoost:
+        if (player.dimensionBoosts >= 7)
+          player.completer.lastLandmarkAchieved = IDs.SeventhDimBoost;
+      case IDs.SeventhDimBoost:
+        if (player.dimensionBoosts >= 8) {
+          player.completer.lastLandmarkAchieved = IDs.EighthDimBoost;
+          player.options.confirmations.antimatterGalaxy = false; // disable the modal appearing
+        }
+      case IDs.EighthDimBoost:
         if (player.galaxies >= 1)
           player.completer.lastLandmarkAchieved = IDs.FirstGalaxy;
       case IDs.FirstGalaxy:
@@ -142,4 +163,51 @@
         if (player.infinities.gte(DC.D1))
           player.completer.lastLandmarkAchieved = IDs.FirstInfinity;
     }    
+  }
+
+  function buyAutobuyersNotBought() {
+    if (!Autobuyer.antimatterDimension(1).isBought)
+      Autobuyer.antimatterDimension(1).purchase();
+    if (!Autobuyer.antimatterDimension(2).isBought)
+      Autobuyer.antimatterDimension(2).purchase();
+    if (!Autobuyer.antimatterDimension(3).isBought)
+      Autobuyer.antimatterDimension(3).purchase();
+    if (!Autobuyer.antimatterDimension(4).isBought)
+      Autobuyer.antimatterDimension(4).purchase();
+    if (!Autobuyer.antimatterDimension(5).isBought)
+      Autobuyer.antimatterDimension(5).purchase();
+    if (!Autobuyer.antimatterDimension(6).isBought)
+      Autobuyer.antimatterDimension(6).purchase();
+    if (!Autobuyer.antimatterDimension(7).isBought)
+      Autobuyer.antimatterDimension(7).purchase();
+    if (!Autobuyer.antimatterDimension(8).isBought)
+      Autobuyer.antimatterDimension(8).purchase();
+    if (!Autobuyer.tickspeed.isBought)
+      Autobuyer.tickspeed.purchase();
+
+    // // stupid optimized version (that didn't even work, but the beauty is too strong)
+    // if (!Autobuyer.antimatterDimension(8).isBought) {
+    //   if (!Autobuyer.antimatterDimension(7).isBought) {
+    //     if (!Autobuyer.antimatterDimension(6).isBought) {
+    //       if (!Autobuyer.antimatterDimension(5).isBought) {
+    //         if (!Autobuyer.antimatterDimension(4).isBought) {
+    //           if (!Autobuyer.antimatterDimension(3).isBought) {
+    //             if (!Autobuyer.antimatterDimension(2).isBought) {
+    //               if (!Autobuyer.antimatterDimension(1).isBought) {
+    //                 Autobuyer.antimatterDimension(1).purchase();
+    //               }
+    //               Autobuyer.antimatterDimension(2).purchase();
+    //             }
+    //             Autobuyer.antimatterDimension(3).purchase();
+    //           }
+    //           Autobuyer.antimatterDimension(4).purchase();
+    //         }
+    //         Autobuyer.antimatterDimension(5).purchase();  
+    //       }
+    //       Autobuyer.antimatterDimension(6).purchase();
+    //     }
+    //     Autobuyer.antimatterDimension(7).purchase();
+    //   }
+    //   Autobuyer.antimatterDimension(8).purchase();
+    // }
   }
