@@ -17,7 +17,6 @@ export default {
       return this.getLandmark();
     },
     config() {
-      console.log();
       return this.landmark.config;
     },
     desc() {
