@@ -8,9 +8,6 @@ export default {
   },
   computed: {
     landmarks() {
-      console.log(Object.values(GameDatabase.landmarks));
-      console.log(Object.values(GameDatabase.landmarks).sort((a, b) => a.id - b.id));
-      console.log(Object.values(GameDatabase.landmarks).sort((a, b) => a.id - b.id).map(config => new LandmarkState(config)));
       return Object.values(GameDatabase.landmarks)
         .sort((a, b) => a.id - b.id)
         .map(config => new LandmarkState(config));
@@ -18,8 +15,6 @@ export default {
   },
   methods: {
     getLandmark(id) {
-      console.log(id);
-      console.log(this.landmarks[id]);
       return () => this.landmarks[id];
     }
   }

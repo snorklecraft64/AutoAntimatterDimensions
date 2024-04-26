@@ -15,7 +15,7 @@ export default {
   },
   methods: {
     update() {
-      this.completerStatus = player.completerOn ? "On" : "Off";
+      this.completerStatus = player.completer.isOn ? "On" : "Off";
     }
   }
 };
