@@ -9,15 +9,19 @@
 
         switch(player.completer.lastLandmarkAchieved) {
           case -1:
+            player.completer.status = "Buying Dimension 1's";
             buyOneDimension(1);
             break;
           case IDs.FirstDim:
             buyOneDimension(1);
+            if (player.antimatterDimension(1).bought >= 10) player.completer.status = "Waiting to buy Dimension 2";
             buyOneDimension(2);
             break;
           case IDs.SecondDim:
+            player.completer.status = "Buying Dimension 2's";
             maxAll();
             buyOneDimension(2);
+            if (player.antimatterDimension(2).bought >= 10) player.completer.status = "Waiting to buy Dimension 3";
             buyOneDimension(3);
             break;
           case IDs.ThirdDim:
@@ -67,6 +71,8 @@
           case IDs.SixthDimBoost:
           case IDs.SeventhDimBoost:
           case IDs.EighthDimBoost:
+          case IDs.FirstGalaxy:
+          case IDs.SecondGalaxy:
             if (Sacrifice.nextBoost.gte(2.00)) sacrificeReset();
             maxAll();
             if (player.dimensions.antimatter[0].bought < 10) buyOneDimension(1);
@@ -80,8 +86,6 @@
             buyAutobuyersNotBought();
             manualRequestGalaxyReset(false);
             manualRequestDimensionBoost(false);
-            break;
-          case IDs.FirstGalaxy:
             break;
         }
 
