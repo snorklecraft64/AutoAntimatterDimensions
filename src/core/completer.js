@@ -9,59 +9,116 @@
 
         switch(player.completer.lastLandmarkAchieved) {
           case -1:
-            player.completer.status = "Buying Dimension 1's";
+            player.completer.status = "Buying 1st Dimensions";
             buyOneDimension(1);
             break;
           case IDs.FirstDim:
             buyOneDimension(1);
-            if (player.antimatterDimension(1).bought >= 10) player.completer.status = "Waiting to buy Dimension 2";
+            if (player.antimatterDimension(1).bought >= 10) player.completer.status = "Waiting to buy 2nd Dimensions";
             buyOneDimension(2);
             break;
           case IDs.SecondDim:
-            player.completer.status = "Buying Dimension 2's";
+            player.completer.status = "Buying 2nd Dimensions";
             maxAll();
             buyOneDimension(2);
-            if (player.antimatterDimension(2).bought >= 10) player.completer.status = "Waiting to buy Dimension 3";
+            if (player.antimatterDimension(2).bought >= 10) player.completer.status = "Waiting to buy 3rd Dimensions";
             buyOneDimension(3);
             break;
           case IDs.ThirdDim:
+            player.completer.status = "Buying 3rd Dimensions";
             maxAll();
             buyOneDimension(3);
+            if (player.antimatterDimension(2).bought >= 10) player.completer.status = "Waiting to buy 4th Dimensions";
             buyOneDimension(4);
             break;
           case IDs.FourthDim:
+            player.completer.status = "Waiting for 20 4th Dimensions";
             maxAll();
             buyOneDimension(4);
             manualRequestDimensionBoost(false);
             break;
           case IDs.FirstDimBoost:
             maxAll();
-            if (player.dimensions.antimatter[0].bought < 10) buyOneDimension(1);
-            else if (player.dimensions.antimatter[1].bought < 10) buyOneDimension(2);
-            else if (player.dimensions.antimatter[2].bought < 10) buyOneDimension(3);
-            else if (player.dimensions.antimatter[3].bought < 10) buyOneDimension(4);
+            if (player.dimensions.antimatter[0].bought < 10){
+              buyOneDimension(1);
+              player.completer.status = "Buying 1st Dimensions";
+            }
+            else if (player.dimensions.antimatter[1].bought < 10) {
+              buyOneDimension(2);
+              player.completer.status = "Buying 2nd Dimensions";
+            }
+            else if (player.dimensions.antimatter[2].bought < 10) {
+              buyOneDimension(3);
+              player.completer.status = "Buying 3rd Dimensions";
+            }
+            else if (player.dimensions.antimatter[3].bought < 10){
+              buyOneDimension(4);
+              player.completer.status = "Buying 4th Dimensions";
+            }
+            else if (player.dimensions.antimatter[4].bought <= 0) player.completer.status = "Waiting to buy 5th Dimensions";
+            else if (player.dimensions.antimatter[4].bought < 10) player.completer.status = "Buying 5th Dimensions";
+            else if (player.dimensions.antimatter[4].bought >= 10) player.completer.status = "Waiting for 20 5th Dimensions";
             buyOneDimension(5);
             manualRequestDimensionBoost(false);
             break;
           case IDs.SecondDimBoost:
             maxAll();
-            if (player.dimensions.antimatter[0].bought < 10) buyOneDimension(1);
-            else if (player.dimensions.antimatter[1].bought < 10) buyOneDimension(2);
-            else if (player.dimensions.antimatter[2].bought < 10) buyOneDimension(3);
-            else if (player.dimensions.antimatter[3].bought < 10) buyOneDimension(4);
-            else if (player.dimensions.antimatter[4].bought < 10) buyOneDimension(5);
+            if (player.dimensions.antimatter[0].bought < 10){
+              buyOneDimension(1);
+              player.completer.status = "Buying 1st Dimensions";
+            }
+            else if (player.dimensions.antimatter[1].bought < 10) {
+              buyOneDimension(2);
+              player.completer.status = "Buying 2nd Dimensions";
+            }
+            else if (player.dimensions.antimatter[2].bought < 10) {
+              buyOneDimension(3);
+              player.completer.status = "Buying 3rd Dimensions";
+            }
+            else if (player.dimensions.antimatter[3].bought < 10){
+              buyOneDimension(4);
+              player.completer.status = "Buying 4th Dimensions";
+            }
+            else if (player.dimensions.antimatter[4].bought < 10) {
+              buyOneDimension(5);
+              player.completer.status = "Buying 5th Dimensions";
+            }
+            else if (player.dimensions.antimatter[5].bought <= 0) player.completer.status = "Waiting to buy 6th Dimensions";
+            else if (player.dimensions.antimatter[5].bought < 10) player.completer.status = "Buying 6th Dimensions";
+            else if (player.dimensions.antimatter[5].bought >= 10) player.completer.status = "Waiting for 20 6th Dimensions";
             buyOneDimension(6);
             maxAll();
             manualRequestDimensionBoost(false);
             break;
           case IDs.ThirdDimBoost:
             maxAll();
-            if (player.dimensions.antimatter[0].bought < 10) buyOneDimension(1);
-            else if (player.dimensions.antimatter[1].bought < 10) buyOneDimension(2);
-            else if (player.dimensions.antimatter[2].bought < 10) buyOneDimension(3);
-            else if (player.dimensions.antimatter[3].bought < 10) buyOneDimension(4);
-            else if (player.dimensions.antimatter[4].bought < 10) buyOneDimension(5);
-            else if (player.dimensions.antimatter[5].bought < 10) buyOneDimension(6);
+            if (player.dimensions.antimatter[0].bought < 10){
+              buyOneDimension(1);
+              player.completer.status = "Buying 1st Dimensions";
+            }
+            else if (player.dimensions.antimatter[1].bought < 10) {
+              buyOneDimension(2);
+              player.completer.status = "Buying 2nd Dimensions";
+            }
+            else if (player.dimensions.antimatter[2].bought < 10) {
+              buyOneDimension(3);
+              player.completer.status = "Buying 3rd Dimensions";
+            }
+            else if (player.dimensions.antimatter[3].bought < 10){
+              buyOneDimension(4);
+              player.completer.status = "Buying 4th Dimensions";
+            }
+            else if (player.dimensions.antimatter[4].bought < 10) {
+              buyOneDimension(5);
+              player.completer.status = "Buying 5th Dimensions";
+            }
+            else if (player.dimensions.antimatter[5].bought < 10) {
+              buyOneDimension(6);
+              player.completer.status = "Buying 6th Dimensions";
+            }
+            else if (player.dimensions.antimatter[6].bought <= 0) player.completer.status = "Waiting to buy 7th Dimensions";
+            else if (player.dimensions.antimatter[6].bought < 10) player.completer.status = "Buying 7th Dimensions";
+            else if (player.dimensions.antimatter[6].bought >= 10) player.completer.status = "Waiting for 20 7th Dimensions";
             buyOneDimension(7);
             maxAll();
             manualRequestDimensionBoost(false);
@@ -75,13 +132,33 @@
           case IDs.SecondGalaxy:
             if (Sacrifice.nextBoost.gte(2.00)) sacrificeReset();
             maxAll();
-            if (player.dimensions.antimatter[0].bought < 10) buyOneDimension(1);
-            else if (player.dimensions.antimatter[1].bought < 10) buyOneDimension(2);
-            else if (player.dimensions.antimatter[2].bought < 10) buyOneDimension(3);
-            else if (player.dimensions.antimatter[3].bought < 10) buyOneDimension(4);
-            else if (player.dimensions.antimatter[4].bought < 10) buyOneDimension(5);
-            else if (player.dimensions.antimatter[5].bought < 10) buyOneDimension(6);
+            if (player.dimensions.antimatter[0].bought < 10){
+              buyOneDimension(1);
+              player.completer.status = "Buying 1st Dimensions";
+            }
+            else if (player.dimensions.antimatter[1].bought < 10) {
+              buyOneDimension(2);
+              player.completer.status = "Buying 2nd Dimensions";
+            }
+            else if (player.dimensions.antimatter[2].bought < 10) {
+              buyOneDimension(3);
+              player.completer.status = "Buying 3rd Dimensions";
+            }
+            else if (player.dimensions.antimatter[3].bought < 10){
+              buyOneDimension(4);
+              player.completer.status = "Buying 4th Dimensions";
+            }
+            else if (player.dimensions.antimatter[4].bought < 10) {
+              buyOneDimension(5);
+              player.completer.status = "Buying 5th Dimensions";
+            }
+            else if (player.dimensions.antimatter[5].bought < 10) {
+              buyOneDimension(6);
+              player.completer.status = "Buying 6th Dimensions";
+            }
             else if (player.dimensions.antimatter[6].bought < 10) buyOneDimension(7);
+            else if (player.dimensions.antimatter[6].bought < 10) player.completer.status = "Buying 8th Dimensions";
+            else if (player.dimensions.antimatter[6].bought >= 10) player.completer.status = "Waiting for " + formatInt(DimBoost.requirement.amount) + " 8th Dimensions";
             buyOneDimension(8);
             buyAutobuyersNotBought();
             manualRequestGalaxyReset(false);
