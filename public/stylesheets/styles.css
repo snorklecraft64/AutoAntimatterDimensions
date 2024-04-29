@@ -9385,3 +9385,17 @@ input.o-automator-block-input {
 .l-landmark-grid__cell {
   margin: 0.5rem 0.8rem;
 }
+
+.l-completer-tab__lower {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  line-height: 3rem;
+}
+
+.l-completer-tab__status {
+  display: flex;
+  flex-direction: column;
+  align-items: top;
+  line-height: 3rem;
+}

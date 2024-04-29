@@ -5,7 +5,10 @@
   export const Completer = (function() {
     return {
       tick() {
-        if (!player.completer.isOn) return;
+        if (!player.completer.isOn) {
+          player.completer.status = "";
+          return;
+        }
 
         switch(player.completer.lastLandmarkAchieved) {
           case -1:
@@ -14,21 +17,21 @@
             break;
           case IDs.FirstDim:
             buyOneDimension(1);
-            if (player.antimatterDimension(1).bought >= 10) player.completer.status = "Waiting to buy 2nd Dimensions";
+            if (player.dimensions.antimatter[0].bought >= 10) player.completer.status = "Waiting to buy 2nd Dimensions";
             buyOneDimension(2);
             break;
           case IDs.SecondDim:
             player.completer.status = "Buying 2nd Dimensions";
             maxAll();
             buyOneDimension(2);
-            if (player.antimatterDimension(2).bought >= 10) player.completer.status = "Waiting to buy 3rd Dimensions";
+            if (player.dimensions.antimatter[1].bought >= 10) player.completer.status = "Waiting to buy 3rd Dimensions";
             buyOneDimension(3);
             break;
           case IDs.ThirdDim:
             player.completer.status = "Buying 3rd Dimensions";
             maxAll();
             buyOneDimension(3);
-            if (player.antimatterDimension(2).bought >= 10) player.completer.status = "Waiting to buy 4th Dimensions";
+            if (player.dimensions.antimatter[2].bought >= 10) player.completer.status = "Waiting to buy 4th Dimensions";
             buyOneDimension(4);
             break;
           case IDs.FourthDim:
