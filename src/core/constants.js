@@ -521,5 +521,6 @@ export const landmarkIDs = {
   EighthDimBoost:           11,
   FirstGalaxy:              12,
   SecondGalaxy:             13,
-  FirstInfinity:            14
+  FirstInfinity:            14,
+  GalaxyBoostUpgrade:       15
 }

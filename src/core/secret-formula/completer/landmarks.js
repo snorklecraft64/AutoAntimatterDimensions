@@ -61,8 +61,9 @@ export const landmarks = {
   FirstInfinity: {
     id: IDs.FirstInfinity,
     desc: "First Infinity"
-  },/*
-  EighthInfinityUpgrade: {
-
-  },*/
+  },
+  GalaxyBoostUpgrade: {
+    id: IDs.GalaxyBoostUpgrade,
+    desc: "Galaxy Boost Upgrade"
+  },
 }

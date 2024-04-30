@@ -24,7 +24,7 @@ export default {
       this.isOn = player.completer.isOn;
     },
     clicked() {
-      player.completer.isOn = !player.completer.isOn;
+      Completer.toggle();
     }
   }
 };
