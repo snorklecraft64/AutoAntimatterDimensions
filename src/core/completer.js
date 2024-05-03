@@ -1,4 +1,4 @@
-import { buyAsManyAsYouCanBuy, buyMaxDimension, buyMaxTickSpeed, buyOneDimension, manualBigCrunchResetRequest, manualRequestDimensionBoost, manualRequestGalaxyReset, maxAll } from "./globals";
+import { buyAsManyAsYouCanBuy, buyMaxDimension, buyMaxTickSpeed, buyOneDimension, manualBigCrunchResetRequest, manualRequestDimensionBoost, manualRequestGalaxyReset, maxAll, sacrificeReset } from "./globals";
 import { landmarkIDs as IDs} from "./constants.js";
 import { DC } from "./constants.js";
 
@@ -10,11 +10,18 @@ export const Completer = (function() {
 
     triggerSubLandmarkComplete: false,
 
+    subLandmarks: {
+      FourthDimBoost_SecondGalaxy: 0,
+      FirstInfinity: 0,
+      GalaxyBoostUpgrade: 0
+    },
+
     toggle() {
       if (!player.completer.isOn) {
         this.currTick = 0;
         this.recordedTick = 0;
-        player.completer.lastSubLandmarkAchieved = 0;
+        for (let subLandmark in this.subLandmarks)
+          subLandmark = 0;
       }
       player.completer.isOn = !player.completer.isOn;
     },
@@ -79,7 +86,15 @@ export const Completer = (function() {
         case IDs.EighthDimBoost:
         case IDs.FirstGalaxy:
         case IDs.SecondGalaxy:
-          if (Sacrifice.nextBoost.gte(2.00)) sacrificeReset();
+          if (this.subLandmarks.FourthDimBoost_SecondGalaxy == 0) {
+            // check what total will be after next boost
+            // done in case completer is turned on after player already sacrificed
+            let nextTotalBoost = Sacrifice.nextBoost.times(Sacrifice.totalBoost);
+            if (nextTotalBoost.gte(5))
+              sacrificeReset();
+          }
+          else if (Sacrifice.nextBoost.gte(2))
+            sacrificeReset();
           maxAll();
           buyFirstXDimensions(8);
           buyAutobuyersNotBought();
@@ -88,7 +103,7 @@ export const Completer = (function() {
           manualRequestDimensionBoost(false);
           break;
         case IDs.FirstInfinity:
-          switch(player.completer.lastSubLandmarkAchieved) {
+          switch(this.subLandmarks.FirstInfinity) {
             case 0:
               player.completer.status = "Starting 8th Challenge";
               buyInfinityUpgrades();
@@ -199,68 +214,79 @@ function checkLandmarks(comp) {
       if (player.dimensionBoosts >= 5)
         player.completer.lastLandmarkAchieved = IDs.FifthDimBoost;
     case IDs.FifthDimBoost:
-      if (player.dimensionBoosts >= 6)
+      if (player.dimensionBoosts >= 6) {
         player.completer.lastLandmarkAchieved = IDs.SixthDimBoost;
+        comp.subLandmarks.FourthDimBoost_SecondGalaxy = 0;
+      }
     case IDs.SixthDimBoost:
-      if (player.dimensionBoosts >= 7)
+      if (player.dimensionBoosts >= 7) {
         player.completer.lastLandmarkAchieved = IDs.SeventhDimBoost;
+        comp.subLandmarks.FourthDimBoost_SecondGalaxy = 0;
+      }
     case IDs.SeventhDimBoost:
       if (player.dimensionBoosts >= 8) {
         player.completer.lastLandmarkAchieved = IDs.EighthDimBoost;
         player.options.confirmations.antimatterGalaxy = false; // disable galaxy modal
+        comp.subLandmarks.FourthDimBoost_SecondGalaxy = 0;
       }
     case IDs.EighthDimBoost:
-      if (player.galaxies >= 1)
+      if (player.galaxies >= 1) {
         player.completer.lastLandmarkAchieved = IDs.FirstGalaxy;
+        comp.subLandmarks.FourthDimBoost_SecondGalaxy = 0;
+      }
     case IDs.FirstGalaxy:
       if (player.galaxies >= 2) {
         player.completer.lastLandmarkAchieved = IDs.SecondGalaxy;
         player.options.confirmations.bigCrunch = false; // disable infinity modal
         player.options.animations.bigCrunch = false; // disable infinity animation
+        comp.subLandmarks.FourthDimBoost_SecondGalaxy = 0;
       }
     case IDs.SecondGalaxy:
       if (player.infinities.gte(DC.D1)) {
         player.completer.lastLandmarkAchieved = IDs.FirstInfinity;
         player.options.confirmations.challenges = false; // disable challenge modal
-        player.completer.lastSubLandmarkAchieved = 0;
+        comp.subLandmarks.FirstInfinity = 0;
       }
+      // here so it's always checked when player is between landmarks FourthDimBoost and SecondGalaxy
+      else if (Sacrifice.totalBoost.gte(5))
+        comp.subLandmarks.FourthDimBoost_SecondGalaxy = 1;
     case IDs.FirstInfinity:
-      switch (player.completer.lastSubLandmarkAchieved) {
+      switch (comp.subLandmarks.FirstInfinity) {
         case 0: // not in challenge
           if (player.challenge.normal.current == 8)
-            player.completer.lastSubLandmarkAchieved = 1;
+            comp.subLandmarks.FirstInfinity = 1;
           else break;
         case 1: // before first dim boost
           if (player.dimensionBoosts >= 1)
-            player.completer.lastSubLandmarkAchieved = 2;
+            comp.subLandmarks.FirstInfinity = 2;
         case 2: // before second dim boost
           if (player.dimensionBoosts >= 2)
-            player.completer.lastSubLandmarkAchieved = 3;
+            comp.subLandmarks.FirstInfinity = 3;
         case 3: // before third dim boost
           if (player.dimensionBoosts >= 3)
-            player.completer.lastSubLandmarkAchieved = 4;
+            comp.subLandmarks.FirstInfinity = 4;
         case 4: // before fourth dim boost
           if (player.dimensionBoosts >= 4)
-            player.completer.lastSubLandmarkAchieved = 5;
+            comp.subLandmarks.FirstInfinity = 5;
         case 5: // before fifth dim boost
           if (player.dimensionBoosts >= 5) {
-            player.completer.lastSubLandmarkAchieved = 6;
+            comp.subLandmarks.FirstInfinity = 6;
             comp.currTick = 0;
             comp.recordedTick = 0;
           }
           break;
         case 6: 
           if (comp.triggerSubLandmarkComplete)
-            player.completer.lastSubLandmarkAchieved = 1;
+            comp.subLandmarks.FirstInfinity = 1;
       }
       if (player.infinityPoints.gte(1)) // BUGGED FIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-        player.completer.lastSubLandmarkAchieved = 0;
+        comp.subLandmarks.FirstInfinity = 0;
       if (InfinityUpgrade.galaxyBoost.isBought) {
         player.completer.lastLandmarkAchieved = IDs.GalaxyBoostUpgrade;
-        player.completer.lastSubLandmarkAchieved = 0;
+        comp.subLandmarks.FirstInfinity = 0;
       }
     case IDs.GalaxyBoostUpgrade:
-      switch (player.completer.lastSubLandmarkAchieved) {
+      switch (comp.subLandmarks.GalaxyBoostUpgrade) {
         case 0:
 
       }

@@ -66,4 +66,4 @@ export const landmarks = {
     id: IDs.GalaxyBoostUpgrade,
     desc: "Galaxy Boost Upgrade"
   },
-}
+};
