@@ -93,6 +93,7 @@ export const Completer = (function() {
             if (nextTotalBoost.gte(5))
               sacrificeReset();
           }
+          // ::::TODO:::: add check if close to next dim boost/galaxy
           else if (Sacrifice.nextBoost.gte(2))
             sacrificeReset();
           maxAll();
@@ -245,7 +246,6 @@ function checkLandmarks(comp) {
       if (player.infinities.gte(DC.D1)) {
         player.completer.lastLandmarkAchieved = IDs.FirstInfinity;
         player.options.confirmations.challenges = false; // disable challenge modal
-        comp.subLandmarks.FirstInfinity = 0;
       }
       // here so it's always checked when player is between landmarks FourthDimBoost and SecondGalaxy
       else if (Sacrifice.totalBoost.gte(5))
