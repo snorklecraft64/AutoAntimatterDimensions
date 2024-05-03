@@ -1,4 +1,4 @@
-import { buyAsManyAsYouCanBuy, buyMaxDimension, buyMaxTickSpeed, buyOneDimension, manualBigCrunchResetRequest, manualRequestDimensionBoost, manualRequestGalaxyReset, maxAll, sacrificeReset } from "./globals";
+import { Achievement, AntimatterDimension, buyAsManyAsYouCanBuy, buyMaxDimension, buyMaxTickSpeed, buyOneDimension, manualBigCrunchResetRequest, manualRequestDimensionBoost, manualRequestGalaxyReset, maxAll, sacrificeReset } from "./globals";
 import { landmarkIDs as IDs} from "./constants.js";
 import { DC } from "./constants.js";
 
@@ -98,12 +98,25 @@ export const Completer = (function() {
           // ::::TODO:::: add check if close to next dim boost/galaxy
           else if (Sacrifice.nextBoost.gte(2))
             sacrificeReset();
-          maxAll();
-          buyFirstXDimensions(8);
-          buyAutobuyersNotBought();
-          manualBigCrunchResetRequest();
-          manualRequestGalaxyReset(false);
-          manualRequestDimensionBoost(false);
+          // make sure only to infinity if achievements achieved
+          if (Achievement(23).isUnlocked && Achievement(28).isUnlocked)
+            manualBigCrunchResetRequest();
+          // make sure to get '9th dimension is a lie' achievement by guarenteeing 99 8th dimensions
+          // last check is added in case someone turns on completer after 100 8th dimensions but doesn't have achievement
+          if (!Achievement(23).isUnlocked && player.antimatter.gte(new Decimal("9e150")) && player.dimensions.antimatter[7].amount.lt(100))
+            buyOneDimension(8);
+          // make sure to get 'there's no point in doing that...' achievement when possible
+          // i.e. when we have over 1e150 1st antimatter dimensions
+          // we check if it's affordable so buying other dimensions doesn't get paused, helping reach to point it is affordable faster
+          else if (!Achievement(28).isUnlocked && player.dimensions.antimatter[0].amount.gt(DC.E150) && AntimatterDimension(1).isAffordable)
+            buyOneDimension(1);
+          else {
+            maxAll();
+            buyFirstXDimensions(8);
+            buyAutobuyersNotBought();
+            manualRequestGalaxyReset(false);
+            manualRequestDimensionBoost(false);
+          }
           break;
         case IDs.FirstInfinity:
           switch(this.subLandmarks.FirstInfinity) {
@@ -142,7 +155,9 @@ export const Completer = (function() {
               this.currTick++;
               // sacrifice after the amount of time it takes to reach sacrifice, unless it's possible to inf
               if (this.recordedTick > 0) {
-                if (this.currTick - this.recordedTick >= this.recordedTick && Sacrifice.nextBoost.lte(100000)) {
+                if (this.currTick - this.recordedTick >= this.recordedTick) {
+                  // add extra check in case of wierdness to make sure not stuck waiting for infinity that will never come
+                  if (Sacrifice.nextBoost.lte(100000) || this.currTick - this.recordedTick >= 1000)
                   sacrificeReset();
                   this.recordedTick = 0;
                   this.currTick = 0;
@@ -184,69 +199,70 @@ export const Landmark = mapGameDataToObject(
 );
 
 function checkLandmarks(comp) {
+  let lastLandmark = player.completer.lastLandmarkAchieved;
   // fallthrough allowed on purpose, check for every landmark not achieved
   // done in case someone turns on the completer late into a run
-  switch (player.completer.lastLandmarkAchieved) {
+  switch (lastLandmark) {
     case -1:
       if (player.dimensions.antimatter[0].bought >= 1)
-        player.completer.lastLandmarkAchieved = IDs.FirstDim;
+        lastLandmark = IDs.FirstDim;
     case IDs.FirstDim:
       if (player.dimensions.antimatter[1].bought >= 1)
-        player.completer.lastLandmarkAchieved = IDs.SecondDim;
+        lastLandmark = IDs.SecondDim;
     case IDs.SecondDim:
       if (player.dimensions.antimatter[2].bought >= 1)
-        player.completer.lastLandmarkAchieved = IDs.ThirdDim;
+        lastLandmark = IDs.ThirdDim;
     case IDs.ThirdDim:
       if (player.dimensions.antimatter[3].bought >= 1) {
-        player.completer.lastLandmarkAchieved = IDs.FourthDim;
+        lastLandmark = IDs.FourthDim;
         player.options.confirmations.dimensionBoost = false; // disable dim boost modal appearing
       }
     case IDs.FourthDim:
       if (player.dimensionBoosts >= 1)
-        player.completer.lastLandmarkAchieved = IDs.FirstDimBoost;
+        lastLandmark = IDs.FirstDimBoost;
     case IDs.FirstDimBoost:
       if (player.dimensionBoosts >= 2)
-        player.completer.lastLandmarkAchieved = IDs.SecondDimBoost;
+        lastLandmark = IDs.SecondDimBoost;
     case IDs.SecondDimBoost:
       if (player.dimensionBoosts >= 3)
-        player.completer.lastLandmarkAchieved = IDs.ThirdDimBoost;
+        lastLandmark = IDs.ThirdDimBoost;
     case IDs.ThirdDimBoost:
       if (player.dimensionBoosts >= 4)
-        player.completer.lastLandmarkAchieved = IDs.FourthDimBoost;
+        lastLandmark = IDs.FourthDimBoost;
     case IDs.FourthDimBoost:
       if (player.dimensionBoosts >= 5)
-        player.completer.lastLandmarkAchieved = IDs.FifthDimBoost;
+        lastLandmark = IDs.FifthDimBoost;
     case IDs.FifthDimBoost:
       if (player.dimensionBoosts >= 6) {
-        player.completer.lastLandmarkAchieved = IDs.SixthDimBoost;
+        lastLandmark = IDs.SixthDimBoost;
         comp.subLandmarks.FourthDimBoost_SecondGalaxy = 0;
       }
     case IDs.SixthDimBoost:
       if (player.dimensionBoosts >= 7) {
-        player.completer.lastLandmarkAchieved = IDs.SeventhDimBoost;
+        lastLandmark = IDs.SeventhDimBoost;
         comp.subLandmarks.FourthDimBoost_SecondGalaxy = 0;
       }
     case IDs.SeventhDimBoost:
       if (player.dimensionBoosts >= 8) {
-        player.completer.lastLandmarkAchieved = IDs.EighthDimBoost;
+        lastLandmark = IDs.EighthDimBoost;
         player.options.confirmations.antimatterGalaxy = false; // disable galaxy modal
         comp.subLandmarks.FourthDimBoost_SecondGalaxy = 0;
       }
     case IDs.EighthDimBoost:
       if (player.galaxies >= 1) {
-        player.completer.lastLandmarkAchieved = IDs.FirstGalaxy;
+        lastLandmark = IDs.FirstGalaxy;
         comp.subLandmarks.FourthDimBoost_SecondGalaxy = 0;
       }
     case IDs.FirstGalaxy:
       if (player.galaxies >= 2) {
-        player.completer.lastLandmarkAchieved = IDs.SecondGalaxy;
+        lastLandmark = IDs.SecondGalaxy;
         player.options.confirmations.bigCrunch = false; // disable infinity modal
         player.options.animations.bigCrunch = false; // disable infinity animation
         comp.subLandmarks.FourthDimBoost_SecondGalaxy = 0;
       }
     case IDs.SecondGalaxy:
       if (player.infinities.gte(DC.D1)) {
-        player.completer.lastLandmarkAchieved = IDs.FirstInfinity;
+        lastLandmark = IDs.FirstInfinity;
         player.options.confirmations.challenges = false; // disable challenge modal
       }
       // here so it's always checked when player is between landmarks FourthDimBoost and SecondGalaxy
@@ -254,7 +270,7 @@ function checkLandmarks(comp) {
         comp.subLandmarks.FourthDimBoost_SecondGalaxy = 1;
     case IDs.FirstInfinity:
       if (InfinityUpgrade.galaxyBoost.isBought) {
-        player.completer.lastLandmarkAchieved = IDs.GalaxyBoostUpgrade;
+        lastLandmark = IDs.GalaxyBoostUpgrade;
       }
       switch (comp.subLandmarks.FirstInfinity) {
         case 0: // not in challenge
@@ -293,7 +309,9 @@ function checkLandmarks(comp) {
         case 0:
 
       }
-  }    
+  }
+
+  player.completer.lastLandmarkAchieved = lastLandmark;
 }
 
 function buyAutobuyersNotBought() {
