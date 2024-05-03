@@ -10,6 +10,8 @@ export const Completer = (function() {
 
     triggerSubLandmarkComplete: false,
 
+    lastInfinityCount: 0,
+
     subLandmarks: {
       FourthDimBoost_SecondGalaxy: 0,
       FirstInfinity: 0,
@@ -251,6 +253,9 @@ function checkLandmarks(comp) {
       else if (Sacrifice.totalBoost.gte(5))
         comp.subLandmarks.FourthDimBoost_SecondGalaxy = 1;
     case IDs.FirstInfinity:
+      if (InfinityUpgrade.galaxyBoost.isBought) {
+        player.completer.lastLandmarkAchieved = IDs.GalaxyBoostUpgrade;
+      }
       switch (comp.subLandmarks.FirstInfinity) {
         case 0: // not in challenge
           if (player.challenge.normal.current == 8)
@@ -279,11 +284,9 @@ function checkLandmarks(comp) {
           if (comp.triggerSubLandmarkComplete)
             comp.subLandmarks.FirstInfinity = 1;
       }
-      if (player.infinityPoints.gte(1)) // BUGGED FIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+      if (player.infinities.gt(comp.lastInfinityCount)) {
         comp.subLandmarks.FirstInfinity = 0;
-      if (InfinityUpgrade.galaxyBoost.isBought) {
-        player.completer.lastLandmarkAchieved = IDs.GalaxyBoostUpgrade;
-        comp.subLandmarks.FirstInfinity = 0;
+        comp.lastInfinityCount++;
       }
     case IDs.GalaxyBoostUpgrade:
       switch (comp.subLandmarks.GalaxyBoostUpgrade) {
